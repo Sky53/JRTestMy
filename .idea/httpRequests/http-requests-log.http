@@ -1,0 +1,16 @@
+GET http://localhost:8080/greeting?name=sacha
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-12-20T111953.200.html
+
+###
+
+GET http://localhost:8080/greeting
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-12-20T111859.200.html
+
+###
+
