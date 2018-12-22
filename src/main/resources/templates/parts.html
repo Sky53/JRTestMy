@@ -5,18 +5,56 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello, ' + ${parts[0].name} + '!'" />
+<p th:text="'PARTS !'" />
+<style type="text/css">
+    TABLE {
+        width: 300px; /* Ширина таблицы */
+        border-collapse: collapse; /* Убираем двойные линии между ячейками */
+        /*margin: auto; !* Выравниваем таблицу по центру окна  *!*/
+    }
+    TD, TH {
+        text-align: center; /* Выравниваем текст по центру ячейки */
+        padding: 3px; /* Поля вокруг содержимого таблицы */
+        border: 2px solid black; /* Параметры рамки */
+    }
+    TH {
+        background: #b0e0e6; /* Цвет фона */
+    }
+</style>
 <table>
+    <tr>
+        <th>Наименования</th>
+        <th>Необходимость</th>
+        <th>Количество</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
+    </tr>
     <th:block th:each="part : ${parts}">
         <tr>
             <td th:text="${part.name}">...</td>
             <td th:text="${part.need ? 'да' : 'нет'}">...</td>
             <td th:text="${part.count}">...</td>
+            <td><a href=''>Изменить</a></td>
+            <td><a href="">Удалить</a></td>
+
         </tr>
         <tr>
-            <td colspan="2" th:text="${part}">...</td>
+           <!--// <td colspan="2" th:text="${part}">...</td>-->
         </tr>
     </th:block>
 </table>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+
+    <table >
+        <tr>
+            <td >Компьютеров можно собрать:</td>
+            <td >Здесь будет число на основе таблицы </td>
+            <td >Кампухтеров </td>
+        </tr>
+    </table>
+
+</br>
 </body>
 </html>

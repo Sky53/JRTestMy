@@ -1,9 +1,9 @@
 package ru.sky.jrtesttask.model;
 
 public class Component {
-    private final String name;
-    private final boolean need;
-    private final int count;
+    private  String name;
+    private  boolean need;
+    private  int count;
 
     public Component(String name, boolean need, int count) {
         this.name = name;
@@ -21,6 +21,18 @@ public class Component {
 
     public int getCount() {
         return count;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNeed(boolean need) {
+        this.need = need;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override

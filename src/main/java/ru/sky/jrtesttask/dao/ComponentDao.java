@@ -12,7 +12,11 @@ public class ComponentDao {
 
     public List<Component> getAllComponents(){
       return Arrays.asList(new Component("Материнская плата",true,10),
-                            new Component("HDD",true,25));
+                            new Component("HDD",true,25),
+                            new Component("SSD",false,12),
+                            new Component("RAM",true,250),
+                            new Component("KeyBord",false,525),
+                            new Component("Mouse",false,255));
     }
 
 
