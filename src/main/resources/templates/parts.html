@@ -23,6 +23,7 @@
 </style>
 <table>
     <tr>
+        <!--<th>id</th>-->
         <th>Наименования</th>
         <th>Необходимость</th>
         <th>Количество</th>
@@ -31,6 +32,8 @@
     </tr>
     <th:block th:each="part : ${parts}">
         <tr>
+            <!--/*@thymesVar id="Id" type="antlr"*/-->
+            <!--<td th:text="${part.Id}">i</td>-->
             <td th:text="${part.name}">...</td>
             <td th:text="${part.need ? 'да' : 'нет'}">...</td>
             <td th:text="${part.count}">...</td>
@@ -54,7 +57,7 @@
             <td >Кампухтеров </td>
         </tr>
     </table>
-
+<!--TODO Зделать пагинацию, -->
 </br>
 </body>
 </html>

@@ -1,10 +1,10 @@
-package ru.sky.jrtesttask.dao;
+package ru.sky.jrtesttask.service;
 
 import ru.sky.jrtesttask.model.Component;
 
 import java.util.List;
 
-public interface ComponentDao {
+public interface ComponentService {
     void addComponent(Component component);
     void updateComponent(Component component);
     void deleteComponent(Component component);
