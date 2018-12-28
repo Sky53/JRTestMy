@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import ru.sky.jrtesttask.model.Component;
 
@@ -16,6 +19,9 @@ public class ComponentDaoImpl implements ComponentDao {
 
     private static final Logger logger = LoggerFactory.getLogger(ComponentDaoImpl.class);
     private SessionFactory sessionFactory = null;
+
+    @Autowired
+    ComponentRepository componentRepository;
 
     /**
      * Заглушка(в последствии будеь связываться Mysql БД и выводить значения с нее)
@@ -130,5 +136,21 @@ public class ComponentDaoImpl implements ComponentDao {
         }
         logger.info(String.format("кОМПОНЕНТЫ СО ЗНАЧЕНИЕМ [%s] успешно отфильтрованы", need));
         return null;
+    }
+
+    public void getNumberPaging(){
+        List<Component> componentList = componentRepository.findAll();
+
+        Integer count = componentList.size();
+        Integer pageSize = 10;
+        Integer pages = count / pageSize;
+        for (int i = 0; i < pages ; i ++){
+            Page<Component> components =  componentRepository.findAll(PageRequest.of(i,pageSize));
+        }
+
+    }
+
+    public Integer getNumberPaging(List<Component> componentList){
+        return  componentList.size() / 10;
     }
 }

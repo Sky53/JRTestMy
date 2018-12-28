@@ -2,28 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="'PARTS !'" />
+<p th:text="'PARTS !'"/>
 <style type="text/css">
     TABLE {
         width: 300px; /* Ширина таблицы */
         border-collapse: collapse; /* Убираем двойные линии между ячейками */
         /*margin: auto; !* Выравниваем таблицу по центру окна  *!*/
     }
+
     TD, TH {
         text-align: center; /* Выравниваем текст по центру ячейки */
         padding: 3px; /* Поля вокруг содержимого таблицы */
         border: 2px solid black; /* Параметры рамки */
     }
+
     TH {
         background: #b0e0e6; /* Цвет фона */
+    }
+
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
     }
 </style>
 <table>
     <tr>
-        <!--<th>id</th>-->
+
         <th>Наименования</th>
         <th>Необходимость</th>
         <th>Количество</th>
@@ -32,8 +45,7 @@
     </tr>
     <th:block th:each="part : ${parts}">
         <tr>
-            <!--/*@thymesVar id="Id" type="antlr"*/-->
-            <!--<td th:text="${part.Id}">i</td>-->
+
             <td th:text="${part.name}">...</td>
             <td th:text="${part.need ? 'да' : 'нет'}">...</td>
             <td th:text="${part.count}">...</td>
@@ -42,22 +54,35 @@
 
         </tr>
         <tr>
-           <!--// <td colspan="2" th:text="${part}">...</td>-->
+
         </tr>
     </th:block>
+
 </table>
+<div class="pagination">
+    <a href="#">&laquo;</a>
+    <a href="http://127.0.0.1:8080/page?page=0&size=10#2">1</a>
+    <a href="http://127.0.0.1:8080/page?page=1&size=10#2">2</a>
+    <a href="http://127.0.0.1:8080/page?page=2&size=10#2">3</a>
+    <a href="#">&raquo;</a>
+</div>
+<ngb-pagination [collectionSize]="70" [(page)]="page" [directionLinks]="false"></ngb-pagination>
+
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 
-    <table >
-        <tr>
-            <td >Компьютеров можно собрать:</td>
-            <td >Здесь будет число на основе таблицы </td>
-            <td >Кампухтеров </td>
-        </tr>
-    </table>
-<!--TODO Зделать пагинацию, -->
+
+<table>
+    <tr>
+        <td>Компьютеров можно собрать:</td>
+        <td>Здесь будет число на основе таблицы</td>
+        <td>Кампухтеров</td>
+    </tr>
+</table>
 </br>
+<!--TODO Зделать пагинацию, -->
+
+
 </body>
 </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        table{width:100%;}
+        table td, table th { border: 1px solid grey;}
+        table th { background: #eee;}
+        .pagination-div{user-select: none;}
+        .pagination-div span{border-radius:3px;border:1px solid #999;
+            padding:5px;margin:10px 0px 0px 10px;display:inline-block}
+        span.selected{background:#ccf;}
+    </style>
+</head>
+<body>
+<h2>Employees</h2>
+<table>
+    <tr>
+        <th>Наименования</th>
+        <th>Необходимость</th>
+        <th>Количество</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
+    </tr>
+    <tr th:each="employee  : ${page.content}">
+
+        <td th:text="${page.name}"></td>
+        <td th:text="${page.need}"></td>
+        <td th:text="${page.count}"></td>
+    </tr>
+</table>
+
+
+</div>
+</body>
+</html>

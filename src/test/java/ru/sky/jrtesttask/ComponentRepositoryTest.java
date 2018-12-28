@@ -48,4 +48,12 @@ public class ComponentRepositoryTest {
         Assert.assertEquals(10, components.getSize());
         // TODO Дописать тест, Дописать тест на имя,
     }
+
+    @Test
+    public void shouldFindbyName() {
+        Page<Component> components = repository.findAllByNameLike("HDD", PageRequest.of(0, 100));
+
+        Assert.assertEquals("HDD",components.getContent().get(0).getName());
+
+    }
 }
