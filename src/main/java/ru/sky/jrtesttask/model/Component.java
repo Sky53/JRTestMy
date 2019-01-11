@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class Component {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

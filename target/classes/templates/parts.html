@@ -20,7 +20,7 @@
     }
 
     TH {
-        background: #b0e0e6; /* Цвет фона */
+        background: #e6a2b5; /* Цвет фона */
     }
 
     .pagination {
@@ -49,8 +49,8 @@
             <td th:text="${part.name}">...</td>
             <td th:text="${part.need ? 'да' : 'нет'}">...</td>
             <td th:text="${part.count}">...</td>
-            <td><a href=''>Изменить</a></td>
-            <td><a href="">Удалить</a></td>
+            <td><a href='<c:out value="${editUrl}"/>'>Изменить</a></td>
+            <td><a href="<c:url value='/remove/${part.id}'/>">Удалить</a></td>
 
         </tr>
         <tr>
@@ -80,6 +80,18 @@
         <td>Кампухтеров</td>
     </tr>
 </table>
+<div>
+    <form method="post" action="main">
+        <input type="text" name="name" placeholder="Введите название"/>
+        <select name="need">
+            <option VALUE="true" >Да</option>
+            <option value="false">Нет</option>
+        </select>
+        <input type="text" name="count" placeholder="Кол-во">
+        <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}">-->
+        <button type="submit">Добавить</button>
+    </form>
+</div>
 </br>
 <!--TODO Зделать пагинацию, -->
 

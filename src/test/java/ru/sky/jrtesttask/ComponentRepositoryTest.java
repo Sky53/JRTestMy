@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sky.jrtesttask.dao.ComponentRepository;
@@ -21,6 +23,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Transactional
+@TestPropertySource(locations="classpath:test.properties")
 public class ComponentRepositoryTest {
 
     @Autowired
@@ -55,5 +58,16 @@ public class ComponentRepositoryTest {
 
         Assert.assertEquals("HDD",components.getContent().get(0).getName());
 
+    }
+    @Test
+    public void  shouldFindByNeedFolse(){
+        Page<Component> componentPage = repository.findAllByNeedFalse(PageRequest.of(0,10));
+        Assert.assertEquals("SSD",componentPage.getContent().get(0).getName());
+    }
+
+    @Test
+    public void souldFindByNeedTrue(){
+        Page<Component> componentPage = repository.findAllByNeedTrue(PageRequest.of(0,10));
+        Assert.assertEquals("HDD",componentPage.getContent().get(0).getName());
     }
 }
