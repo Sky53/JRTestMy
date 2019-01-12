@@ -1,24 +1,15 @@
 package ru.sky.jrtesttask.dao;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sky.jrtesttask.AbstractTest;
-import ru.sky.jrtesttask.dao.ComponentRepository;
 import ru.sky.jrtesttask.model.Component;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Transactional
