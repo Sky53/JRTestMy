@@ -20,6 +20,5 @@ public class CompomemtRESTController {
     public void removeComponent(@PathVariable("id") Integer id) {
         componentRepository.deleteById(id);
     }
-
 }
 

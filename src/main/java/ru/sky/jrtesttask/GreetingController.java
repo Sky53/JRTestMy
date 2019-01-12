@@ -7,8 +7,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.sky.jrtesttask.dao.ComponentRepository;
 import ru.sky.jrtesttask.model.Component;
@@ -64,24 +64,17 @@ public class GreetingController {
         return "parts";
     }
 
-    @PostMapping("/main/{component}")
-    public String updateComponent(@RequestParam("id") Component component,
-                                  @RequestParam("name") String nameComponent,
-                                  @RequestParam("need") Boolean needComponent,
-                                  @RequestParam("count") Integer countComponent,
-                                  Model model,
-                                  Pageable pageable) {
+    @PostMapping("/update")
+    public String updateComponent(
+            @RequestBody UpdateComponentRequest request) {
 
-        component.setName(nameComponent);
-        component.setNeed(needComponent);
-        component.setCount(countComponent);
+             Component component = componentRepository.findById(request.getId()).get();
+             component.setName(request.getName());
         componentRepository.save(component);
-        Page<Component> components = componentRepository.findAll(pageable);
-        model.addAttribute("parts", components);
-        return "parts";
+
+        return "redirect:/parts";
 
     }
-
 
 
 }
