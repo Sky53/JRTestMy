@@ -15,8 +15,6 @@ import ru.sky.jrtesttask.model.Component;
 
 @Controller
 public class GreetingController {
-    @Autowired
-    private ComponentDaoImpl componentDaoImpl;
 
     @Autowired
     private ComponentRepository componentRepository;
@@ -62,8 +60,36 @@ public class GreetingController {
         componentRepository.save(component);
         Page<Component> components = componentRepository.findAll(pageable);
         model.addAttribute("parts", components);
+
         return "parts";
-//
+    }
+
+    @PostMapping("/main/{component}")
+    public String updateComponent(@RequestParam("id") Component component,
+                                  @RequestParam("name") String nameComponent,
+                                  @RequestParam("need") Boolean needComponent,
+                                  @RequestParam("count") Integer countComponent,
+                                  Model model,
+                                  Pageable pageable) {
+
+        component.setName(nameComponent);
+        component.setNeed(needComponent);
+        component.setCount(countComponent);
+        componentRepository.save(component);
+        Page<Component> components = componentRepository.findAll(pageable);
+        model.addAttribute("parts", components);
+        return "parts";
+
+    }
+
+    @PostMapping("/main/{component}")
+    public String removeComponent(@RequestParam("id") Component component,
+                                  Model model,
+                                  Pageable pageable) {
+        componentRepository.delete(component);
+        Page<Component> components = componentRepository.findAll(pageable);
+        model.addAttribute("parts", components);
+        return "parts";
     }
 
 }

@@ -9,6 +9,8 @@ public interface ComponentRepository extends JpaRepository<Component, Integer> {
 
     Page<Component> findAll(Pageable pageable);
 
+    Page<Component> findById(Pageable pageable);
+
     Page<Component> findAllByNameLike( String name, Pageable pageable);
 
     Page<Component> findAllByNeedFalse(Pageable pageable);
