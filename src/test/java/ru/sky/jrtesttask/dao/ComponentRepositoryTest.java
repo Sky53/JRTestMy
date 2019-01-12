@@ -1,4 +1,4 @@
-package ru.sky.jrtesttask;
+package ru.sky.jrtesttask.dao;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,17 +14,15 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import ru.sky.jrtesttask.AbstractTest;
 import ru.sky.jrtesttask.dao.ComponentRepository;
 import ru.sky.jrtesttask.model.Component;
 
 import java.util.Iterator;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
 @Transactional
-@TestPropertySource(locations="classpath:test.properties")
-public class ComponentRepositoryTest {
+public class ComponentRepositoryTest extends AbstractTest {
 
     @Autowired
     ComponentRepository repository;
