@@ -8,15 +8,106 @@
         $(function () {
                 $("a.deleteCom").on("click", function () {
                     var a = $(this);
-                    //$(this).parents(".component-row");
                     $.get($(this).attr("href"), function (data) {
                         a.parents(".component-row").empty();
                         console.log(data);
                     });
                     return false;
-                })
+                });
             }
         );
+    </script>
+    <script>
+        $(function () {
+            $(".updateCom").on("click", function () {
+
+                let a = $(this).parents(".component-row").first();
+                let id = a.find(".id").first().text();
+                let name = a.find(".name").first().text();
+                let need = a.find(".need").first().text() === "да";
+                let count = a.find(".count").first().text();
+                console.log(id, name, need, count);
+
+                $.post("/updates", {id, name, need, count});
+                return false;
+
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+        $(function () {
+            $('body').append('<div id="blackout"></div>');
+            var  boxWidth  = 400;
+            function centerBox() {
+                /*Определяем нужные данные*/
+                var winWidth = $(window).width();
+                var winHeight = $(document).height();
+                var scrollPos = $(window).scrollTop();
+
+                /* Вычисляем позицию */
+                var disWidth = (winWidth - boxWidth) / 2;
+                var disHeight = scrollPos + 150;
+                // var disWidth = 500;
+                // var disHeight = 500;
+
+                /* Добавляем стили к блокам */
+                $('.popup-box').css({'width' : boxWidth+'px', 'left' : disWidth+'px', 'top' : disHeight+'px'});
+                $('#blackout').css({'width' : winWidth+'px', 'height' : winHeight+'px'});
+
+
+            }
+            $(window).resize(centerBox);
+            $(window).scroll(centerBox);
+            centerBox();
+
+            $('[class*=updateCom]').on( "click", function(e) {
+
+                /* Предотвращаем действия по умолчанию */
+                e.preventDefault();
+                e.stopPropagation();
+
+                /* Получаем id (последний номер в имени класса ссылки) */
+                var name = $(this).attr('class');
+                var id = name[name.length - 1];
+                var scrollPos = $(window).scrollTop();
+
+                /* Корректный вывод popup окна, накрытие тенью, предотвращение скроллинга */
+                $('#popup-box-1').show();
+                $('#blackout').show();
+                $('html,body').css('overflow', 'hidden');
+
+                /* Убираем баг в Firefox */
+                $('html').scrollTop(scrollPos);
+            });
+
+            $('[class*=popup-box]').click(function(e) {
+                /* Предотвращаем работу ссылки, если она являеться нашим popup окном */
+                e.stopPropagation();
+            });
+            $('html').click(function() {
+                var scrollPos = $(window).scrollTop();
+                /* Скрыть окно, когда кликаем вне его области */
+                $('[id^=popup-box-]').hide();
+                $('#blackout').hide();
+                $("html,body").css("overflow","auto");
+                $('html').scrollTop(scrollPos);
+            });
+            $('.close').click(function() {
+                var scrollPos = $(window).scrollTop();
+                /* Скрываем тень и окно, когда пользователь кликнул по X */
+                $('[id^=popup-box-]').hide();
+                $('#blackout').hide();
+                $("html,body").css("overflow","auto");
+                $('html').scrollTop(scrollPos);
+            });
+        });
+
+
+
     </script>
 </head>
 <body>
@@ -48,10 +139,74 @@
         padding: 8px 16px;
         text-decoration: none;
     }
+
+    .popup-box {
+        position: absolute;
+        border-radius: 5px;
+        background: #fff;
+        display: none;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        font-family: Arial, sans-serif;
+        z-index: 9999999;
+        font-size: 14px;
+    }
+
+    .popup-box .close {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        color: #434343;
+        padding: 20px;
+        font-size: 20px;
+    }
+
+    .popup-box .close:hover {
+        color: #000;
+    }
+
+    .popup-box h2 {
+        padding: 0;
+        margin: 0;
+        font-size: 18px;
+    }
+    .popup-box .top {
+        padding: 20px;
+    }
+
+    .popup-box .bottom {
+        background: #eee;
+        border-top: 1px solid #e5e5e5;
+        padding: 20px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    #blackout {
+        background: rgba(0,0,0,0.3);
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+        z-index: 999999;
+        left: 0;
+        display: none;
+    }
 </style>
+
+    <div class="popup-box" id="popup-box-1">
+        <div class="close">X</div>
+        <div class="top">
+            <h2>Редактирование</h2>
+        </div>
+        <div class="bottom">
+            Здесь будет форма(КН)
+        </div>
+    </div>
 <table>
     <tr>
-
+        <th>ID</th>
         <th>Наименования</th>
         <th>Необходимость</th>
         <th>Количество</th>
@@ -59,25 +214,24 @@
         <th>Удалить</th>
     </tr>
     <th:block th:each="part : ${parts}">
-        <tr class="component-row">
+        <tr class="component-row    ">
 
-            <td th:text="${part.name}">...</td>
-            <td th:text="${part.need ? 'да' : 'нет'}">...</td>
-            <td th:text="${part.count}">...</td>
-            <td><a class="updateCom" >Изменить</a></td>
+            <td class="id" th:text="${part.id}">...</td>
+            <td class="name" th:text="${part.name}">...</td>
+            <td class="need" th:text="${part.need ? 'да' : 'нет'}">...</td>
+            <td class="count" th:text="${part.count}">...</td>
+            <td><a class="updateCom" th:href="@{'/updates/' + ${part.id}}">Изменить</a></td>
             <td><a class="deleteCom" th:href="@{'/delete/component/' + ${part.id}}">Удалить</a></td>
-            <!--<a th:href="@{'/delete/component/' + ${part.id}}">view</a>-->
-
         </tr>
-        <tr>
 
-        </tr>
+
     </th:block>
 
 </table>
 <div class="pagination">
 
-    <a th:each="i: ${#numbers.sequence(0, parts.totalPages - 1)}" th:href="@{'/parts?page='+${i}+'&size=10'}">[[${i+1}]]</a >
+    <a th:each="i: ${#numbers.sequence(0, parts.totalPages - 1)}"
+       th:href="@{'/parts?page='+${i}+'&size=10'}">[[${i+1}]]</a>
 
 </div>
 <ngb-pagination [collectionSize]="70" [(page)]="page" [directionLinks]="false"></ngb-pagination>

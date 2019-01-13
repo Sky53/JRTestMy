@@ -18,4 +18,6 @@ public interface ComponentRepository extends JpaRepository<Component, Integer> {
     Page<Component> findAllByNeedTrue(Pageable pageable);
 
 
+
+
 }

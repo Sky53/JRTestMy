@@ -6,20 +6,40 @@ public class UpdateComponentRequest {
 
     private  String name;
 
+    private Boolean need;
+
+    private Integer count;
+
+    public Integer getId() {
+        return id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
+    public Boolean getNeed() {
+        return need;
     }
 
-    public String getName() {
-        return name;
+    public void setNeed(Boolean need) {
+        this.need = need;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     @Override
@@ -27,6 +47,8 @@ public class UpdateComponentRequest {
         return "UpdateComponentRequest{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", need=" + need +
+                ", count=" + count +
                 '}';
     }
 }

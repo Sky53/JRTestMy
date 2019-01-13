@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.sky.jrtesttask.dao.ComponentRepository;
 import ru.sky.jrtesttask.model.Component;
@@ -18,8 +17,6 @@ public class GreetingController {
 
     @Autowired
     private ComponentRepository componentRepository;
-
-
 
 
     @GetMapping("/test")
@@ -50,12 +47,16 @@ public class GreetingController {
         return "redirect:/parts";
     }
 
-    @PostMapping("/update")
-    public String updateComponent(
-            @RequestBody UpdateComponentRequest request) {
+    @PostMapping(value = "/updates")
+    public String updateComponent(@RequestParam Integer id,
+                                  @RequestParam String name,
+                                  @RequestParam Boolean need,
+                                  @RequestParam Integer count) {
 
-             Component component = componentRepository.findById(request.getId()).get();
-             component.setName(request.getName());
+        Component component = componentRepository.findById(id).get();
+        component.setName(name);
+        component.setNeed(need);
+        component.setCount(count + 1000);
         componentRepository.save(component);
 
         return "redirect:/parts";
