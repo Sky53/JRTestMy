@@ -20,21 +20,7 @@ public class GreetingController {
     private ComponentRepository componentRepository;
 
 
-    /**
-     * @param model
-     * @return listmodel in parts.html
-     */
-    @GetMapping("/parts")
-    public String parts(Model model) {
-//       model.addAttribute("parts", componentDaoImpl.getAllComponents());
-//        model.addAttribute("parts", componentRepository.findAll());
-        //List<Component> componentList = componentRepository.findAll();
-        model.addAttribute("parts", componentRepository.findAll());
 
-
-        return "parts";
-        //TODO https://www.baeldung.com/spring-thymeleaf-conditionals
-    }
 
     @GetMapping("/test")
     public String test(Page<Component> componentPage) {
@@ -43,7 +29,7 @@ public class GreetingController {
 
     }
 
-    @GetMapping("/page")
+    @GetMapping("/parts")
     public String getComponents(@PageableDefault(size = 10) Pageable pageable, Model model) {
         Page<Component> page = componentRepository.findAll(pageable);
         model.addAttribute("parts", page);
@@ -61,7 +47,7 @@ public class GreetingController {
         Page<Component> components = componentRepository.findAll(pageable);
         model.addAttribute("parts", components);
 
-        return "parts";
+        return "redirect:/parts";
     }
 
     @PostMapping("/update")

@@ -64,7 +64,7 @@
             <td th:text="${part.name}">...</td>
             <td th:text="${part.need ? 'да' : 'нет'}">...</td>
             <td th:text="${part.count}">...</td>
-            <td><a class="updateCom" href="/main/{component}">Изменить</a></td>
+            <td><a class="updateCom" >Изменить</a></td>
             <td><a class="deleteCom" th:href="@{'/delete/component/' + ${part.id}}">Удалить</a></td>
             <!--<a th:href="@{'/delete/component/' + ${part.id}}">view</a>-->
 
@@ -76,11 +76,9 @@
 
 </table>
 <div class="pagination">
-    <a href="#">&laquo;</a>
-    <a href="http://127.0.0.1:8080/page?page=0&size=10">1</a>
-    <a href="http://127.0.0.1:8080/page?page=1&size=10">2</a>
-    <a href="http://127.0.0.1:8080/page?page=2&size=10">3</a>
-    <a href="#">&raquo;</a>
+
+    <a th:each="i: ${#numbers.sequence(0, parts.totalPages - 1)}" th:href="@{'/parts?page='+${i}+'&size=10'}">[[${i+1}]]</a >
+
 </div>
 <ngb-pagination [collectionSize]="70" [(page)]="page" [directionLinks]="false"></ngb-pagination>
 
