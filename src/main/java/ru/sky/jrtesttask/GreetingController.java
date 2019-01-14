@@ -84,7 +84,7 @@ public class GreetingController {
         Component component = componentRepository.findById(id).get();
         component.setName(name);
         component.setNeed(need);
-        component.setCount(count + 1000);
+        component.setCount(count);
         componentRepository.save(component);
 
         return "redirect:/parts";

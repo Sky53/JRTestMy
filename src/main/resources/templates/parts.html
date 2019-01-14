@@ -17,6 +17,7 @@
             }
         );
     </script>
+
     <script>
         $(function () {
             $(".updateCom").on("click", function () {
@@ -26,15 +27,38 @@
                 let name = a.find(".name").first().text();
                 let need = a.find(".need").first().text() === "да";
                 let count = a.find(".count").first().text();
-                console.log(id, name, need, count);
-
-                $.post("/updates", {id, name, need, count});
+                //              console.log(id, name, need, count);
+                document.getElementById('idInputForm').value = id;
+                document.getElementById('idNameForm').value = name;
+                document.getElementById('idNeedForm').value = need;
+                document.getElementById('idCountForm').value = count;
+                //     $.post("/updates", {id, name, need, count});
                 return false;
 
             });
 
         });
+    </script>
 
+    <script>
+        $(function () {
+            $(".updateButton").on("click", function () {
+
+                let id = document.getElementById("idInputForm").value;
+                let name = document.getElementById("idNameForm").value;
+                let need = document.getElementById("idNeedForm").value;
+                let count = document.getElementById("idCountForm").value;
+                console.log(id, name, need, count);
+
+                $.post("/updates", {id, name, need, count});
+
+               // return false;
+
+
+            })
+
+
+        })
     </script>
 
 
@@ -203,34 +227,39 @@
     </div>
     <div class="bottom">
 
-            <form method="post" action="/updates">
-                <input type="text" name="name" placeholder="Введите название"/>
-                <select name="need">
-                    <option VALUE="true">Да</option>
-                    <option value="false">Нет</option>
-                </select>
-                <input type="text" name="count" placeholder="Кол-во">
-                <button type="submit">Добавить</button>
-            </form>
+        <form class="updateForm" method="get" action="/parts">
+            <input class="idInput" type="hidden" name="idIn" id="idInputForm" placeholder="id"/>
+            <input class="nameInput" type="text" name="nameIn" id="idNameForm" placeholder="Введите название"/>
+            <select class="needInput" name="needIn" id="idNeedForm">
+                <option VALUE="true">Да</option>
+                <option value="false">Нет</option>
+            </select>
+            <input class="countInput" type="text" name="countIn" id="idCountForm" placeholder="Кол-во">
+            <button class="updateButton" type="submit">Изменить</button>
+        </form>
 
     </div>
 </div>
 <div>
-    <form  action="/findByName">
+    <form action="/findByName">
         <input type="text" name="name" placeholder="Введите название"/>
         <button type="submit">Найти</button>
     </form>
 
+    <form action="/parts">
+        <button>Все</button>
+    </form>
+
     <form action="/findByNeed">
-        <button >Нужные</button>
+        <button>Нужные</button>
     </form>
 
     <form action="/findByNotNeed">
-        <button >Опциональные</button>
+        <button>Опциональные</button>
     </form>
 
 </div>
-<td></td>
+<p></p>
 <table>
     <tr>
         <th>ID</th>
@@ -243,7 +272,7 @@
     <th:block th:each="part : ${parts}">
         <tr class="component-row    ">
 
-            <td class="id" th:text="${part.id}">...</td>
+            <td  class="id"  th:text="${part.id}">...</td>
             <td class="name" th:text="${part.name}">...</td>
             <td class="need" th:text="${part.need ? 'да' : 'нет'}">...</td>
             <td class="count" th:text="${part.count}">...</td>
