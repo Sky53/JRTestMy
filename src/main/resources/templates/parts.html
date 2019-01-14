@@ -41,7 +41,8 @@
     <script>
         $(function () {
             $('body').append('<div id="blackout"></div>');
-            var  boxWidth  = 400;
+            var boxWidth = 600;
+
             function centerBox() {
                 /*Определяем нужные данные*/
                 var winWidth = $(window).width();
@@ -51,20 +52,20 @@
                 /* Вычисляем позицию */
                 var disWidth = (winWidth - boxWidth) / 2;
                 var disHeight = scrollPos + 150;
-                // var disWidth = 500;
-                // var disHeight = 500;
+
 
                 /* Добавляем стили к блокам */
-                $('.popup-box').css({'width' : boxWidth+'px', 'left' : disWidth+'px', 'top' : disHeight+'px'});
-                $('#blackout').css({'width' : winWidth+'px', 'height' : winHeight+'px'});
+                $('.popup-box').css({'width': boxWidth + 'px', 'left': disWidth + 'px', 'top': disHeight + 'px'});
+                $('#blackout').css({'width': winWidth + 'px', 'height': winHeight + 'px'});
 
 
             }
+
             $(window).resize(centerBox);
             $(window).scroll(centerBox);
             centerBox();
 
-            $('[class*=updateCom]').on( "click", function(e) {
+            $('[class*=updateCom]').on("click", function (e) {
 
                 /* Предотвращаем действия по умолчанию */
                 e.preventDefault();
@@ -84,28 +85,27 @@
                 $('html').scrollTop(scrollPos);
             });
 
-            $('[class*=popup-box]').click(function(e) {
+            $('[class*=popup-box]').click(function (e) {
                 /* Предотвращаем работу ссылки, если она являеться нашим popup окном */
                 e.stopPropagation();
             });
-            $('html').click(function() {
+            $('html').click(function () {
                 var scrollPos = $(window).scrollTop();
                 /* Скрыть окно, когда кликаем вне его области */
                 $('[id^=popup-box-]').hide();
                 $('#blackout').hide();
-                $("html,body").css("overflow","auto");
+                $("html,body").css("overflow", "auto");
                 $('html').scrollTop(scrollPos);
             });
-            $('.close').click(function() {
+            $('.close').click(function () {
                 var scrollPos = $(window).scrollTop();
                 /* Скрываем тень и окно, когда пользователь кликнул по X */
                 $('[id^=popup-box-]').hide();
                 $('#blackout').hide();
-                $("html,body").css("overflow","auto");
+                $("html,body").css("overflow", "auto");
                 $('html').scrollTop(scrollPos);
             });
         });
-
 
 
     </script>
@@ -145,7 +145,7 @@
         border-radius: 5px;
         background: #fff;
         display: none;
-        box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
         font-family: Arial, sans-serif;
         z-index: 9999999;
         font-size: 14px;
@@ -172,6 +172,7 @@
         margin: 0;
         font-size: 18px;
     }
+
     .popup-box .top {
         padding: 20px;
     }
@@ -185,7 +186,7 @@
     }
 
     #blackout {
-        background: rgba(0,0,0,0.3);
+        background: rgba(0, 0, 0, 0.3);
         position: absolute;
         top: 0;
         overflow: hidden;
@@ -195,15 +196,41 @@
     }
 </style>
 
-    <div class="popup-box" id="popup-box-1">
-        <div class="close">X</div>
-        <div class="top">
-            <h2>Редактирование</h2>
-        </div>
-        <div class="bottom">
-            Здесь будет форма(КН)
-        </div>
+<div class="popup-box" id="popup-box-1">
+    <div class="close">X</div>
+    <div class="top">
+        <h2>Редактирование</h2>
     </div>
+    <div class="bottom">
+
+            <form method="post" action="/updates">
+                <input type="text" name="name" placeholder="Введите название"/>
+                <select name="need">
+                    <option VALUE="true">Да</option>
+                    <option value="false">Нет</option>
+                </select>
+                <input type="text" name="count" placeholder="Кол-во">
+                <button type="submit">Добавить</button>
+            </form>
+
+    </div>
+</div>
+<div>
+    <form  action="/findByName">
+        <input type="text" name="name" placeholder="Введите название"/>
+        <button type="submit">Найти</button>
+    </form>
+
+    <form action="/findByNeed">
+        <button >Нужные</button>
+    </form>
+
+    <form action="/findByNotNeed">
+        <button >Опциональные</button>
+    </form>
+
+</div>
+<td></td>
 <table>
     <tr>
         <th>ID</th>

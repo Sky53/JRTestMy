@@ -33,6 +33,34 @@ public class GreetingController {
         return "parts";
     }
 
+    @GetMapping("/findByName")
+    public String getComponentForName(@RequestParam String name,
+                                      Model model,
+                                      Pageable pageable) {
+        if (name.isEmpty()){
+            Page<Component> components = componentRepository.findAll(pageable);
+            model.addAttribute("parts",components);
+            return "parts";
+        }
+        Page<Component> page = componentRepository.findAllByNameLike(name, pageable);
+        model.addAttribute("parts", page);
+        return "parts";
+    }
+
+    @GetMapping("/findByNeed")
+    public String getComponentForNeed(Model model,Pageable pageable) {
+        Page<Component> page = componentRepository.findAllByNeedTrue(pageable);
+        model.addAttribute("parts", page);
+        return "parts";
+    }
+
+    @GetMapping("/findByNotNeed")
+    public String getComponentForNotNeed(Model model,Pageable pageable) {
+        Page<Component> page = componentRepository.findAllByNeedFalse(pageable);
+        model.addAttribute("parts", page);
+        return "parts";
+    }
+
     @PostMapping("/main")
     public String add(@RequestParam String name,
                       @RequestParam Boolean need,
