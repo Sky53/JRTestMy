@@ -19,12 +19,7 @@ public class GreetingController {
     private ComponentRepository componentRepository;
 
 
-    @GetMapping("/test")
-    public String test(Page<Component> componentPage) {
-        componentPage.getTotalElements();
-        return "parts";
 
-    }
 
     @GetMapping("/parts")
     public String getComponents(@PageableDefault(size = 10) Pageable pageable, Model model) {

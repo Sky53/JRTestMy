@@ -52,7 +52,8 @@
 
                 $.post("/updates", {id, name, need, count});
 
-               // return false;
+                window.location.href = "/parts";
+               return false;
 
 
             })
@@ -227,7 +228,7 @@
     </div>
     <div class="bottom">
 
-        <form class="updateForm" method="get" action="/parts">
+        <form >
             <input class="idInput" type="hidden" name="idIn" id="idInputForm" placeholder="id"/>
             <input class="nameInput" type="text" name="nameIn" id="idNameForm" placeholder="Введите название"/>
             <select class="needInput" name="needIn" id="idNeedForm">
@@ -235,7 +236,7 @@
                 <option value="false">Нет</option>
             </select>
             <input class="countInput" type="text" name="countIn" id="idCountForm" placeholder="Кол-во">
-            <button class="updateButton" type="submit">Изменить</button>
+            <button class="updateButton"  >Изменить</button>
         </form>
 
     </div>
@@ -245,19 +246,21 @@
         <input type="text" name="name" placeholder="Введите название"/>
         <button type="submit">Найти</button>
     </form>
+    <p></p>
 
+<table>
     <form action="/parts">
         <button>Все</button>
     </form>
-
+          <a>&nbsp;&nbsp;</a>
     <form action="/findByNeed">
         <button>Нужные</button>
     </form>
-
+        <a>&nbsp;&nbsp;</a>
     <form action="/findByNotNeed">
         <button>Опциональные</button>
     </form>
-
+</table>
 </div>
 <p></p>
 <table>
@@ -272,7 +275,7 @@
     <th:block th:each="part : ${parts}">
         <tr class="component-row    ">
 
-            <td  class="id"  th:text="${part.id}">...</td>
+            <td type="hidden" class="id"  th:text="${part.id}">...</td>
             <td class="name" th:text="${part.name}">...</td>
             <td class="need" th:text="${part.need ? 'да' : 'нет'}">...</td>
             <td class="count" th:text="${part.count}">...</td>
