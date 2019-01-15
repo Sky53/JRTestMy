@@ -301,11 +301,13 @@
 
 
 <table>
+    <th:block th:each="part1 : ${colvo}">
     <tr>
         <td>Компьютеров можно собрать:</td>
-        <td>Здесь будет число на основе таблицы</td>
+        <td class="name" th:text="${part1}">...</td>
         <td>Кампухтеров</td>
     </tr>
+    </th:block>
 </table>
 <div>
     <form method="post" action="main">
