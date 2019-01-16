@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="html5">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html charset=UTF-8"/>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+    <script th:src="@{js/eventDelete.js}"></script>
+    <script th:src="@{js/eventUpdate.js}"></script>
+    <script th:src="@{js/showWindow.js}"></script>
+    <STYLE th:src="@{css/app.css}"></STYLE>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+
+</head>
+<body>
+<p>findByNeed !</p>
+<div class="popup-box" id="popup-box-1">
+    <div class="close">X</div>
+    <div class="top">
+        <h2>Редактирование</h2>
+    </div>
+    <div class="bottom">
+
+        <form >
+            <input class="idInput" type="hidden" name="idIn" id="idInputForm" placeholder="id"/>
+            <input class="nameInput" type="text" name="nameIn" id="idNameForm" placeholder="Введите название"/>
+            <select class="needInput" name="needIn" id="idNeedForm">
+                <option VALUE="true">Да</option>
+                <option value="false">Нет</option>
+            </select>
+            <input class="countInput" type="text" name="countIn" id="idCountForm" placeholder="Кол-во">
+            <button class="updateButton"  >Изменить</button>
+        </form>
+
+    </div>
+</div>
+<div>
+    <form action="/findByName">
+        <input type="text" name="name" placeholder="Введите название"/>
+        <button type="submit">Найти</button>
+    </form>
+    <p></p>
+
+    <table>
+        <form action="/parts">
+            <button>Все</button>
+        </form>
+        <a>&nbsp;&nbsp;</a>
+        <form action="/findByNeed">
+            <button>Нужные</button>
+        </form>
+        <a>&nbsp;&nbsp;</a>
+        <form action="/findByNotNeed">
+            <button>Опциональные</button>
+        </form>
+    </table>
+</div>
+<p></p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Наименования</th>
+        <th>Необходимость</th>
+        <th>Количество</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
+    </tr>
+    <th:block th:each="part : ${parts}">
+        <tr class="component-row    ">
+
+            <td type="hidden" class="id"  th:text="${part.id}">...</td>
+            <td class="name" th:text="${part.name}">...</td>
+            <td class="need" th:text="${part.need ? 'да' : 'нет'}">...</td>
+            <td class="count" th:text="${part.count}">...</td>
+            <td><a class="updateCom" th:href="@{'/updates/' + ${part.id}}">Изменить</a></td>
+            <td><a class="deleteCom" th:href="@{'/delete/component/' + ${part.id}}">Удалить</a></td>
+        </tr>
+
+
+    </th:block>
+
+</table>
+<div class="pagination">
+
+    <a th:each="i: ${#numbers.sequence(0, parts.totalPages - 1)}"
+       th:href="@{'/findByNeed?page='+${i}+'&size=10'}">[[${i+1}]]</a>
+
+</div>
+<ngb-pagination [collectionSize]="70" [(page)]="page" [directionLinks]="false"></ngb-pagination>
+
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+
+
+<table>
+    <th:block th:each="part1 : ${colvo}">
+        <tr>
+            <td>Компьютеров можно собрать:</td>
+            <td class="name" th:text="${part1}">...</td>
+            <td>Кампухтеров</td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <form method="post" action="main">
+        <input type="text" name="name" placeholder="Введите название"/>
+        <select name="need">
+            <option VALUE="true">Да</option>
+            <option value="false">Нет</option>
+        </select>
+        <input type="text" name="count" placeholder="Кол-во">
+        <button id="addButton" type="submit">Добавить</button>
+        <script>
+            $('#addButton').on('click', function() { window.location = 'http://www.google.com'; });
+        </script>
+    </form>
+</div>
+</br>
+
+
+</body>
+</html>

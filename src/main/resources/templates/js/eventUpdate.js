@@ -6,12 +6,13 @@ $(function () {
         let name = a.find(".name").first().text();
         let need = a.find(".need").first().text() === "да";
         let count = a.find(".count").first().text();
-        //              console.log(id, name, need, count);
+                      console.log(id, name, need, count);
         document.getElementById('idInputForm').value = id;
         document.getElementById('idNameForm').value = name;
         document.getElementById('idNeedForm').value = need;
         document.getElementById('idCountForm').value = count;
         //     $.post("/updates", {id, name, need, count});
+     //   alert("Передо во всплывающее");
         return false;
 
     });
@@ -26,11 +27,11 @@ $(function () {
         let need = document.getElementById("idNeedForm").value;
         let count = document.getElementById("idCountForm").value;
         console.log(id, name, need, count);
-
+      //  alert("Передано на сервер");
         $.post("/updates", {id, name, need, count});
 
-        window.location.href = "/parts";
-        window.location.reload();
+   //     alert("Перезагрузка");
+        setTimeout(function() {window.location.reload();}, 1);
         return false;
 
 

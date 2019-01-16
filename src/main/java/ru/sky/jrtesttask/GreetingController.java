@@ -75,17 +75,17 @@ public class GreetingController {
         if (copyValue != null) {
             model.addAttribute("colvo", copyValue);
         }
-        return "parts";
+        return "findByNeed";
     }
 
     @GetMapping("/findByNotNeed")
-    public String getComponentForNotNeed(Model model, @PageableDefault(size = 10)  Pageable pageable) {
+    public String getComponentForNotNeed(Model model, @PageableDefault(size = 10) Pageable pageable) {
         Page<Component> page = componentRepository.findAllByNeedFalse(pageable);
         model.addAttribute("parts", page);
         if (copyValue != null) {
             model.addAttribute("colvo", copyValue);
         }
-        return "parts";
+        return "findByNotNeed";
     }
 
     @PostMapping("/main")
