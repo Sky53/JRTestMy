@@ -31,7 +31,7 @@ public class GreetingController {
 
 
         Integer maxAssembyComponent = Integer.MAX_VALUE;
-        Page<Component> componentList = componentRepository.findAllByNeedTrue(pageable);
+        List<Component> componentList = componentRepository.findAllByNeedTrue();
         for (Component component : componentList) {
 
             if (component.getCount() < maxAssembyComponent) {
@@ -48,7 +48,7 @@ public class GreetingController {
     @GetMapping("/findByName")
     public String getComponentForName(@RequestParam String name,
                                       Model model,
-                                      Pageable pageable) {
+                                      @PageableDefault(size = 10) Pageable pageable) {
         if (name.isEmpty()) {
             Page<Component> components = componentRepository.findAll(pageable);
             model.addAttribute("parts", components);
@@ -69,7 +69,7 @@ public class GreetingController {
     }
 
     @GetMapping("/findByNeed")
-    public String getComponentForNeed(Model model, Pageable pageable) {
+    public String getComponentForNeed(Model model, @PageableDefault(size = 10) Pageable pageable) {
         Page<Component> page = componentRepository.findAllByNeedTrue(pageable);
         model.addAttribute("parts", page);
         if (copyValue != null) {
@@ -79,7 +79,7 @@ public class GreetingController {
     }
 
     @GetMapping("/findByNotNeed")
-    public String getComponentForNotNeed(Model model, Pageable pageable) {
+    public String getComponentForNotNeed(Model model, @PageableDefault(size = 10)  Pageable pageable) {
         Page<Component> page = componentRepository.findAllByNeedFalse(pageable);
         model.addAttribute("parts", page);
         if (copyValue != null) {
@@ -93,7 +93,7 @@ public class GreetingController {
                       @RequestParam Boolean need,
                       @RequestParam Integer count,
                       Model model,
-                      Pageable pageable) {
+                      @PageableDefault(size = 10) Pageable pageable) {
         Component component = new Component(name, need, count);
         componentRepository.save(component);
         Page<Component> components = componentRepository.findAll(pageable);
@@ -117,8 +117,5 @@ public class GreetingController {
         return "redirect:/parts";
 
     }
-
-
-
 
 }

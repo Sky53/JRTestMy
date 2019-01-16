@@ -4,136 +4,10 @@
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html charset=UTF-8"/>
     <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
-    <script>
-        $(function () {
-                $("a.deleteCom").on("click", function () {
-                    var a = $(this);
-                    $.get($(this).attr("href"), function (data) {
-                        a.parents(".component-row").empty();
-                        console.log(data);
-                    });
-                    return false;
-                });
-            }
-        );
-    </script>
+    <script th:src="@{js/eventDelete.js}"></script>
+    <script th:src="@{js/eventUpdate.js}"></script>
+    <script th:src="@{js/showWindow.js}"></script>
 
-    <script>
-        $(function () {
-            $(".updateCom").on("click", function () {
-
-                let a = $(this).parents(".component-row").first();
-                let id = a.find(".id").first().text();
-                let name = a.find(".name").first().text();
-                let need = a.find(".need").first().text() === "да";
-                let count = a.find(".count").first().text();
-                //              console.log(id, name, need, count);
-                document.getElementById('idInputForm').value = id;
-                document.getElementById('idNameForm').value = name;
-                document.getElementById('idNeedForm').value = need;
-                document.getElementById('idCountForm').value = count;
-                //     $.post("/updates", {id, name, need, count});
-                return false;
-
-            });
-
-        });
-    </script>
-
-    <script>
-        $(function () {
-            $(".updateButton").on("click", function () {
-
-                let id = document.getElementById("idInputForm").value;
-                let name = document.getElementById("idNameForm").value;
-                let need = document.getElementById("idNeedForm").value;
-                let count = document.getElementById("idCountForm").value;
-                console.log(id, name, need, count);
-
-                $.post("/updates", {id, name, need, count});
-
-                window.location.href = "/parts";
-               return false;
-
-
-            })
-
-
-        })
-    </script>
-
-
-    <script>
-        $(function () {
-            $('body').append('<div id="blackout"></div>');
-            var boxWidth = 600;
-
-            function centerBox() {
-                /*Определяем нужные данные*/
-                var winWidth = $(window).width();
-                var winHeight = $(document).height();
-                var scrollPos = $(window).scrollTop();
-
-                /* Вычисляем позицию */
-                var disWidth = (winWidth - boxWidth) / 2;
-                var disHeight = scrollPos + 150;
-
-
-                /* Добавляем стили к блокам */
-                $('.popup-box').css({'width': boxWidth + 'px', 'left': disWidth + 'px', 'top': disHeight + 'px'});
-                $('#blackout').css({'width': winWidth + 'px', 'height': winHeight + 'px'});
-
-
-            }
-
-            $(window).resize(centerBox);
-            $(window).scroll(centerBox);
-            centerBox();
-
-            $('[class*=updateCom]').on("click", function (e) {
-
-                /* Предотвращаем действия по умолчанию */
-                e.preventDefault();
-                e.stopPropagation();
-
-                /* Получаем id (последний номер в имени класса ссылки) */
-                var name = $(this).attr('class');
-                var id = name[name.length - 1];
-                var scrollPos = $(window).scrollTop();
-
-                /* Корректный вывод popup окна, накрытие тенью, предотвращение скроллинга */
-                $('#popup-box-1').show();
-                $('#blackout').show();
-                $('html,body').css('overflow', 'hidden');
-
-                /* Убираем баг в Firefox */
-                $('html').scrollTop(scrollPos);
-            });
-
-            $('[class*=popup-box]').click(function (e) {
-                /* Предотвращаем работу ссылки, если она являеться нашим popup окном */
-                e.stopPropagation();
-            });
-            $('html').click(function () {
-                var scrollPos = $(window).scrollTop();
-                /* Скрыть окно, когда кликаем вне его области */
-                $('[id^=popup-box-]').hide();
-                $('#blackout').hide();
-                $("html,body").css("overflow", "auto");
-                $('html').scrollTop(scrollPos);
-            });
-            $('.close').click(function () {
-                var scrollPos = $(window).scrollTop();
-                /* Скрываем тень и окно, когда пользователь кликнул по X */
-                $('[id^=popup-box-]').hide();
-                $('#blackout').hide();
-                $("html,body").css("overflow", "auto");
-                $('html').scrollTop(scrollPos);
-            });
-        });
-
-
-    </script>
 </head>
 <body>
 <p>PARTS !</p>
@@ -317,7 +191,10 @@
             <option value="false">Нет</option>
         </select>
         <input type="text" name="count" placeholder="Кол-во">
-        <button type="submit">Добавить</button>
+        <button id="addButton" type="submit">Добавить</button>
+        <script>
+            $('#addButton').on('click', function() { window.location = 'http://www.google.com'; });
+        </script>
     </form>
 </div>
 </br>
