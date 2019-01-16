@@ -7,94 +7,12 @@
     <script th:src="@{js/eventDelete.js}"></script>
     <script th:src="@{js/eventUpdate.js}"></script>
     <script th:src="@{js/showWindow.js}"></script>
+    <STYLE th:src="@{css/app.css}"></STYLE>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
 
 </head>
 <body>
 <p>PARTS !</p>
-<style type="text/css">
-    TABLE {
-        width: 300px; /* Ширина таблицы */
-        border-collapse: collapse; /* Убираем двойные линии между ячейками */
-        /*margin: auto; !* Выравниваем таблицу по центру окна  *!*/
-    }
-
-    TD, TH {
-        text-align: center; /* Выравниваем текст по центру ячейки */
-        padding: 3px; /* Поля вокруг содержимого таблицы */
-        border: 2px solid black; /* Параметры рамки */
-    }
-
-    TH {
-        background: #e6a2b5; /* Цвет фона */
-    }
-
-    .pagination {
-        display: inline-block;
-    }
-
-    .pagination a {
-        color: black;
-        float: left;
-        padding: 8px 16px;
-        text-decoration: none;
-    }
-
-    .popup-box {
-        position: absolute;
-        border-radius: 5px;
-        background: #fff;
-        display: none;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-        font-family: Arial, sans-serif;
-        z-index: 9999999;
-        font-size: 14px;
-    }
-
-    .popup-box .close {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        cursor: pointer;
-        color: #434343;
-        padding: 20px;
-        font-size: 20px;
-    }
-
-    .popup-box .close:hover {
-        color: #000;
-    }
-
-    .popup-box h2 {
-        padding: 0;
-        margin: 0;
-        font-size: 18px;
-    }
-
-    .popup-box .top {
-        padding: 20px;
-    }
-
-    .popup-box .bottom {
-        background: #eee;
-        border-top: 1px solid #e5e5e5;
-        padding: 20px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-
-    #blackout {
-        background: rgba(0, 0, 0, 0.3);
-        position: absolute;
-        top: 0;
-        overflow: hidden;
-        z-index: 999999;
-        left: 0;
-        display: none;
-    }
-</style>
-
 <div class="popup-box" id="popup-box-1">
     <div class="close">X</div>
     <div class="top">
