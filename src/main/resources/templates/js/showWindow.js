@@ -1,6 +1,6 @@
 $(function () {
     $('body').append('<div id="blackout"></div>');
-    var boxWidth = 600;
+    var boxWidth = 500;
 
     function centerBox() {
         /*Определяем нужные данные*/

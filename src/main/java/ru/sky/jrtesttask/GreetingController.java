@@ -45,7 +45,6 @@ public class GreetingController {
 
             return "parts";
         }
-//        Page<Component> page = componentRepository.findAllByNameLike(name, pageable);
         Page<Component> page = componentRepository.findAllByNameLikeIgnoreCase(name, pageable);
         model.addAttribute("parts", page);
 
