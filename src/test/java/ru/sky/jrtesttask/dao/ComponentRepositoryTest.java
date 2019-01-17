@@ -52,7 +52,7 @@ public class ComponentRepositoryTest extends AbstractTest {
 
     @Test
     public void shouldFindbyName() {
-        Page<Component> components = repository.findAllByNameLike("HDD", PageRequest.of(0, 100));
+        Page<Component> components = repository.findAllByNameLikeIgnoreCase("HDD", PageRequest.of(0, 100));
 
         Assert.assertEquals("HDD",components.getContent().get(0).getName());
 

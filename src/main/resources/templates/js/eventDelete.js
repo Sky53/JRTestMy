@@ -4,6 +4,7 @@ $(function () {
             $.get($(this).attr("href"), function (data) {
                 a.parents(".component-row").empty();
                 console.log(data);
+
             });
             return false;
         });

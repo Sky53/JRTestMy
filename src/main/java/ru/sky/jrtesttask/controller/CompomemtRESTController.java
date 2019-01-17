@@ -6,6 +6,8 @@ import ru.sky.jrtesttask.UpdateComponentRequest;
 import ru.sky.jrtesttask.dao.ComponentRepository;
 import ru.sky.jrtesttask.model.Component;
 
+import java.util.List;
+
 @RestController
 public class CompomemtRESTController {
 
@@ -21,18 +23,7 @@ public class CompomemtRESTController {
         componentRepository.deleteById(id);
     }
 
-//    @GetMapping(value = "/updates/{id}")
-//    public void updateComponent(
-//                                  @PathVariable("id") Integer id,
-//                                  @RequestBody UpdateComponentRequest request) {
-//
-//        Component component = componentRepository.findById(request.getId()).get();
-//        component.setName(request.getName());
-//        component.setNeed(request.getNeed());
-//        component.setCount(request.getCount());
-//        componentRepository.save(component);
-//
-//    }
+
 
     @RequestMapping(value = "/updateTest/{id}", method = RequestMethod.POST)
     public String updateComponentTest(@RequestBody UpdateComponentRequest request) {
@@ -44,5 +35,7 @@ public class CompomemtRESTController {
 
         return "redirect:/parts";
     }
+    
+
 }
 

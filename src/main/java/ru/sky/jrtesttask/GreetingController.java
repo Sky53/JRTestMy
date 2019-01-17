@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import ru.sky.jrtesttask.dao.ComponentRepository;
 import ru.sky.jrtesttask.model.Component;
 
@@ -17,8 +16,6 @@ import java.util.List;
 
 @Controller
 public class GreetingController {
-
-    public Integer copyValue;
 
     @Autowired
     private ComponentRepository componentRepository;
@@ -30,18 +27,7 @@ public class GreetingController {
         model.addAttribute("parts", page);
 
 
-        Integer maxAssembyComponent = Integer.MAX_VALUE;
-        List<Component> componentList = componentRepository.findAllByNeedTrue();
-        for (Component component : componentList) {
-
-            if (component.getCount() < maxAssembyComponent) {
-                maxAssembyComponent = component.getCount();
-            } else if (component.getCount() <= 0) {
-                maxAssembyComponent = 0;
-            }
-        }
-        copyValue = maxAssembyComponent;
-        model.addAttribute("colvo",copyValue);
+        model.addAttribute("colvo", getMaxValueAssembyComponent());
         return "parts";
     }
 
@@ -53,18 +39,18 @@ public class GreetingController {
             Page<Component> components = componentRepository.findAll(pageable);
             model.addAttribute("parts", components);
 
-            if (copyValue != null) {
-                model.addAttribute("colvo", copyValue);
-            }
+
+            model.addAttribute("colvo", getMaxValueAssembyComponent());
+
 
             return "parts";
         }
-        Page<Component> page = componentRepository.findAllByNameLike(name, pageable);
+//        Page<Component> page = componentRepository.findAllByNameLike(name, pageable);
+        Page<Component> page = componentRepository.findAllByNameLikeIgnoreCase(name, pageable);
         model.addAttribute("parts", page);
 
-        if (copyValue != null) {
-            model.addAttribute("colvo", copyValue);
-        }
+        model.addAttribute("colvo", getMaxValueAssembyComponent());
+
         return "parts";
     }
 
@@ -72,9 +58,7 @@ public class GreetingController {
     public String getComponentForNeed(Model model, @PageableDefault(size = 10) Pageable pageable) {
         Page<Component> page = componentRepository.findAllByNeedTrue(pageable);
         model.addAttribute("parts", page);
-        if (copyValue != null) {
-            model.addAttribute("colvo", copyValue);
-        }
+        model.addAttribute("colvo", getMaxValueAssembyComponent());
         return "findByNeed";
     }
 
@@ -82,9 +66,7 @@ public class GreetingController {
     public String getComponentForNotNeed(Model model, @PageableDefault(size = 10) Pageable pageable) {
         Page<Component> page = componentRepository.findAllByNeedFalse(pageable);
         model.addAttribute("parts", page);
-        if (copyValue != null) {
-            model.addAttribute("colvo", copyValue);
-        }
+        model.addAttribute("colvo", getMaxValueAssembyComponent());
         return "findByNotNeed";
     }
 
@@ -116,6 +98,21 @@ public class GreetingController {
 
         return "redirect:/parts";
 
+    }
+
+    public Integer getMaxValueAssembyComponent() {
+        Integer maxValue = Integer.MAX_VALUE;
+        List<Component> allByNeedTrue = componentRepository.findAllByNeedTrue();
+        if (allByNeedTrue.isEmpty()) {
+            maxValue = 0;
+        } else {
+            for (Component component : allByNeedTrue) {
+                if (maxValue > component.getCount()) {
+                    maxValue = component.getCount();
+                }
+            }
+        }
+        return maxValue;
     }
 
 }

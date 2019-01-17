@@ -12,7 +12,7 @@ $(document).ready(function () {
         document.getElementById('idNameForm').value = name;
         document.getElementById('idNeedForm').value = need;
         document.getElementById('idCountForm').value = count;
-  
+
         return false;
     });
 
@@ -25,10 +25,9 @@ $(document).ready(function () {
         let count = document.getElementById("idCountForm").value;
         console.log(id, name, need, count);
 
-        $.post("/updates", {id, name, need, count}, function () {
-            location.reload();
-        });
-
+            $.post("/updates", {id, name, need, count}, function () {
+                location.reload();
+            });
 
         return false;
 

@@ -27,7 +27,7 @@
                 <option VALUE="true">Да</option>
                 <option value="false">Нет</option>
             </select>
-            <input class="countInput" type="text" name="countIn" id="idCountForm" placeholder="Кол-во">
+            <input class="countInput" type="number" size="10" min="0" max="2147483647" name="countIn" id="idCountForm" placeholder="Кол-во">
             <button class="updateButton"  >Изменить</button>
         </form>
 
@@ -102,12 +102,12 @@
 </table>
 <div>
     <form method="post" action="main">
-        <input type="text" name="name" placeholder="Введите название"/>
+        <input type="text" name="name" value="noName" placeholder="Введите название"/>
         <select name="need">
             <option VALUE="true">Да</option>
             <option value="false">Нет</option>
         </select>
-        <input type="text" name="count" placeholder="Кол-во">
+        <input type="number" size="10" min="0" max="2147483647" value="0" name="count" placeholder="Кол-во">
         <button id="addButton" type="submit">Добавить</button>
     </form>
 </div>
