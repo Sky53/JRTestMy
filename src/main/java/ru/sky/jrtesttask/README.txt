@@ -1,0 +1,1 @@
+ type in the address bar 127.0.0.1:8080/parts
