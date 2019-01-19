@@ -40,19 +40,19 @@
     </form>
     <p></p>
 
-<table>
-    <form action="/parts">
-        <button>Все</button>
-    </form>
-          <a>&nbsp;&nbsp;</a>
-    <form action="/findByNeed">
-        <button>Нужные</button>
-    </form>
+    <table>
+        <form action="/parts">
+            <button>Все</button>
+        </form>
         <a>&nbsp;&nbsp;</a>
-    <form action="/findByNotNeed">
-        <button>Опциональные</button>
-    </form>
-</table>
+        <form action="/findByNeed">
+            <button>Нужные</button>
+        </form>
+        <a>&nbsp;&nbsp;</a>
+        <form action="/findByNotNeed">
+            <button>Опциональные</button>
+        </form>
+    </table>
 </div>
 <p></p>
 <table>
@@ -94,11 +94,11 @@
 
 <table>
     <th:block th:each="part1 : ${colvo}">
-    <tr>
-        <td>Компьютеров можно собрать:</td>
-        <td class="name" th:text="${part1}">...</td>
-        <td>Кампухтеров</td>
-    </tr>
+        <tr>
+            <td>Компьютеров можно собрать:</td>
+            <td class="name" th:text="${part1}">...</td>
+            <td>Кампухтеров</td>
+        </tr>
     </th:block>
 </table>
 <div>

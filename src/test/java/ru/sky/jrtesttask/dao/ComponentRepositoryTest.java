@@ -3,6 +3,7 @@ package ru.sky.jrtesttask.dao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.internal.runners.statements.FailOnTimeout;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,11 +16,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sky.jrtesttask.AbstractTest;
+import ru.sky.jrtesttask.GreetingController;
 import ru.sky.jrtesttask.dao.ComponentRepository;
 import ru.sky.jrtesttask.model.Component;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Transactional
 public class ComponentRepositoryTest extends AbstractTest {
@@ -44,7 +45,8 @@ public class ComponentRepositoryTest extends AbstractTest {
 
     @Test
     public void shouldPaginationValid() {
-        Page<Component> components = repository.findAll(PageRequest.of(0, 10, new Sort(Sort.Direction.ASC, "id")));
+        Page<Component> components = repository.findAll(PageRequest.of(0, 10,
+                                                        new Sort(Sort.Direction.ASC, "id")));
 
         Assert.assertEquals(10, components.getSize());
         // TODO Дописать тест, Дописать тест на имя,
@@ -63,9 +65,5 @@ public class ComponentRepositoryTest extends AbstractTest {
         Assert.assertEquals("SSD",componentPage.getContent().get(0).getName());
     }
 
-    @Test
-    public void souldFindByNeedTrue(){
-        Page<Component> componentPage = repository.findAllByNeedTrue(PageRequest.of(0,10));
-        Assert.assertEquals("HDD",componentPage.getContent().get(0).getName());
-    }
+
 }
